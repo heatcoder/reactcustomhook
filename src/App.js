@@ -1,6 +1,11 @@
 
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import {useFetchData} from "./UseFetchData";
+import Details from './Details';
+import Home from './Home';
+import Menu from './Menu'
+import Idmeal from'./Idmeal'
 function App() {
 
 const {fetchD, error}=useFetchData("https://www.themealdb.com/api/json/v1/1/search.php?f=a")
@@ -13,23 +18,30 @@ if(error) {
   return <h1>Meals not available.</h1>
 }
 console.log(fetchD)
-git 
+const Iam = "I am maindom"
 
   return (
-    <div className="App">
+    <Home >
+      <Menu />
+      <Routes>
     
-{
-  fetchD?.meals?.map((meal, index)=>{
-    return (
-    <>
-    <img src={meal?.strMealThumb} alt="" /> 
-    <h1 key={index}>{meal?.strMeal}</h1>
-    </>
-    )
-  })
-}
-    </div>
+       <Route path = "/" element = {<Home Iam={Iam} />}/>
+        <Route path = "/Details" element = {<Details fetchD={fetchD} />}/>
+        <Route path = "/:idMeal" element = {<Idmeal fetchD={fetchD} />}/>
+
+
+
+    
+    </Routes>
+
+    </Home>
+   
   );
 }
 
 export default App;
+
+
+
+
+
