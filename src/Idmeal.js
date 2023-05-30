@@ -1,5 +1,6 @@
 
 import { useParams } from "react-router"
+import { useNavigate } from "react-router"
 
 
 const Idmeal=({fetchD})=>{
@@ -7,21 +8,26 @@ const Idmeal=({fetchD})=>{
     const {idMeal} = useParams()
 
 
-    const meal = fetchD.meals.find((meal)=>idMeal===meal.idMeal)
+    const meal = fetchD?.meals.find((meal)=>idMeal===meal.idMeal)
 
     let ingredients = [];
     for (let i = 1; i <= 20; i++) {
       const ingredient = meal[`strIngredient${i}`];
-      if (ingredient && ingredient.trim()) {
-        ingredients.push(ingredient);
+      if (ingredient && ingredient?.trim()) {
+        ingredients?.push(ingredient);
       }
+    }
+    const navig = useNavigate()
+
+    const navigateHandler=()=>{
+        navig("/")
     }
 
     return(
         <>
        <h1>{meal?.strMeal}</h1>
        <ul>
-       {ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+       {ingredients?.map((ingredient, index) => <li key={index}>{ingredient}</li>)}
         {/* <li>{meal?.strIngredient1.trim() && meal.strIngredient1}</li>
         <li>{meal?.strIngredient2.trim() && meal.strIngredient2}</li>
         <li>{meal?.strIngredient3.trim() && meal.strIngredient3}</li>
@@ -65,6 +71,8 @@ const Idmeal=({fetchD})=>{
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowFullScreen>
     </iframe>
+
+    <button onClick = {navigateHandler} > Go to Home</button>
       
 
        </>
