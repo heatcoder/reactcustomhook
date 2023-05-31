@@ -17,11 +17,22 @@ const Idmeal=({fetchD})=>{
         ingredients?.push(ingredient);
       }
     }
+    console.log(ingredients)
     const navig = useNavigate()
 
     const navigateHandler=()=>{
         navig("/")
     }
+
+    const strMeasure1 = [];
+
+    for (let i=1; i<=20; i++){
+      const strMeasure = meal[`strMeasure${i}`]
+      if (strMeasure && strMeasure?.trim()) {
+        strMeasure1?.push(strMeasure)
+      }
+    }
+    console.log(strMeasure1)
 
     return(
         <>
@@ -51,14 +62,15 @@ const Idmeal=({fetchD})=>{
        <p>{meal?.strInstructions}</p>
        <img src={meal?.strMealThumb} alt="" width="250px" />
        <ul>
-        <li>{meal?.strMeasure1}</li>
+       {strMeasure1.map((strmes, index)=> <li key={index}>{strmes}</li>)}
+        {/* <li>{meal?.strMeasure1}</li>
         <li>{meal?.strMeasure2}</li>
         <li>{meal?.strMeasure3}</li>
         <li>{meal?.strMeasure4}</li>
         <li>{meal?.strMeasure5}</li>
         <li>{meal?.strMeasure6}</li>
         <li>{meal?.strMeasure7}</li>
-        <li>{meal?.strMeasure8}</li>
+        <li>{meal?.strMeasure8}</li> */}
 
        </ul>
       
